@@ -213,11 +213,11 @@ def click_tab(tab_num):
 
 
 def main():
-    ## URL info extraction.
-    url_query = st.experimental_get_query_params()
-    if "arxiv_code" in url_query:
-        arxiv_code = url_query["arxiv_code"][0]
-        st.session_state.arxiv_code = arxiv_code
+    # ## URL info extraction.
+    # url_query = st.experimental_get_query_params()
+    # if "arxiv_code" in url_query:
+    #     arxiv_code = url_query["arxiv_code"][0]
+    #     st.session_state.arxiv_code = arxiv_code
 
     st.markdown(
         """<div class="pixel-font">Regulatory Comment Explorer</div>
@@ -302,18 +302,18 @@ def main():
             else:
                 st.error("Company not found.")
 
-    ## URL tab selection.
-    if "tab_num" in url_query:
-        index_tab = int(url_query["tab_num"][0])
-        js = f"""
-        <script>
-            var tabs = window.parent.document.querySelectorAll("[id^='tabs-bui'][id$='-tab-{index_tab}']");
-            if (tabs.length > 0) {{
-                tabs[0].click();
-            }}
-        </script>
-        """
-        st.components.v1.html(js)
+    # ## URL tab selection.
+    # if "tab_num" in url_query:
+    #     index_tab = int(url_query["tab_num"][0])
+    #     js = f"""
+    #     <script>
+    #         var tabs = window.parent.document.querySelectorAll("[id^='tabs-bui'][id$='-tab-{index_tab}']");
+    #         if (tabs.length > 0) {{
+    #             tabs[0].click();
+    #         }}
+    #     </script>
+    #     """
+    #     st.components.v1.html(js)
 
 
 if __name__ == "__main__":
