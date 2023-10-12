@@ -296,7 +296,7 @@ def main():
         st.session_state.arxiv_code = arxiv_code
         if len(arxiv_code) > 0:
             if arxiv_code in data.index:
-                paper = data.loc[arxiv_code].to_dict()
+                paper = data[data.summary == arxiv_code].to_dict()
                 create_paper_card(paper, mode="open")
             else:
                 st.error("Company not found.")
