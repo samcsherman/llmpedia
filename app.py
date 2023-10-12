@@ -128,7 +128,7 @@ def generate_grid_gallery(df, n_cols=3):
                     st.markdown(
                         f'{paper_title}',
                     )
-                    paper_code = df.iloc[i * n_cols + j]["summary"]
+                    paper_code = df.iloc[i * n_cols + j].name
                     focus_btn = st.button(
                         "Read Summary", use_container_width=True
                     )
@@ -293,9 +293,9 @@ def main():
     with content_tabs[2]:
         ## Focus on a paper.
         arxiv_code = st.text_input("Summary", st.session_state.arxiv_code)
-        # st.session_state.arxiv_code = arxiv_code
+        st.session_state.arxiv_code = arxiv_code
         if len(arxiv_code) > 0:
-            paper = data[data.summary == arxiv_code].to_dict()
+            paper = data.loc[arxiv_code].to_dict()
             create_paper_card(paper, mode="open")
 
     # ## URL tab selection.
