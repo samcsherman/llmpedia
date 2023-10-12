@@ -23,14 +23,14 @@ st.set_page_config(
     initial_sidebar_state="expanded",
 )
 
-# if "papers" not in st.session_state:
-#     st.session_state.papers = None
-#
-# if "page_number" not in st.session_state:
-#     st.session_state.page_number = 0
-#
-# if "num_pages" not in st.session_state:
-#     st.session_state.num_pages = 0
+if "papers" not in st.session_state:
+    st.session_state.papers = None
+
+if "page_number" not in st.session_state:
+    st.session_state.page_number = 0
+
+if "num_pages" not in st.session_state:
+    st.session_state.num_pages = 0
 #
 if "arxiv_code" not in st.session_state:
     st.session_state.arxiv_code = ""
