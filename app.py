@@ -231,17 +231,17 @@ def main():
 
     papers = data.to_dict("records")
 
-    ## Content tabs.
-    content_tabs = st.tabs(["Feed View"])
+    # ## Content tabs.
+    # content_tabs = st.tabs(["Feed View"])
 
-    with content_tabs[0]:
-        if "page_number" not in st.session_state:
-            st.session_state.page_number = 0
+    # with content_tabs[0]:
+    if "page_number" not in st.session_state:
+        st.session_state.page_number = 0
 
-        papers_subset = create_pagination(papers, items_per_page=7, label="summaries")
-        for paper in papers_subset:
-            create_paper_card(paper)
-        create_bottom_navigation(label="summaries")
+    papers_subset = create_pagination(papers, items_per_page=7, label="summaries")
+    for paper in papers_subset:
+        create_paper_card(paper)
+    create_bottom_navigation(label="summaries")
 
 
 
