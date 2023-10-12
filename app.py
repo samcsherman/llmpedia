@@ -22,14 +22,14 @@ st.set_page_config(
     initial_sidebar_state="expanded",
 )
 
-if "papers" not in st.session_state:
-    st.session_state.papers = None
-
-if "page_number" not in st.session_state:
-    st.session_state.page_number = 0
-
-if "num_pages" not in st.session_state:
-    st.session_state.num_pages = 0
+# if "papers" not in st.session_state:
+#     st.session_state.papers = None
+#
+# if "page_number" not in st.session_state:
+#     st.session_state.page_number = 0
+#
+# if "num_pages" not in st.session_state:
+#     st.session_state.num_pages = 0
 #
 if "arxiv_code" not in st.session_state:
     st.session_state.arxiv_code = ""
@@ -270,7 +270,7 @@ def main():
     papers = data.to_dict("records")
 
     ## Content tabs.
-    content_tabs = st.tabs(["Feed View", "Grid View", "Focus View"])
+    content_tabs = st.tabs(["Feed View"])
 
     with content_tabs[0]:
         if "page_number" not in st.session_state:
@@ -281,21 +281,21 @@ def main():
             create_paper_card(paper)
         create_bottom_navigation(label="summaries")
 
-    with content_tabs[1]:
-        if "page_number" not in st.session_state:
-            st.session_state.page_number = 0
-
-        papers_df_subset = create_pagination(data, items_per_page=25, label="grid")
-        generate_grid_gallery(papers_df_subset)
-        create_bottom_navigation(label="grid")
-
-    with content_tabs[2]:
-        ## Focus on a paper.
-        arxiv_code = st.text_input("Summary", st.session_state.arxiv_code)
-        st.session_state.arxiv_code = arxiv_code
-        if len(arxiv_code) > 0:
-            paper = data.loc[arxiv_code].to_dict()
-            create_paper_card(paper, mode="open")
+    # with content_tabs[1]:
+    #     if "page_number" not in st.session_state:
+    #         st.session_state.page_number = 0
+    #
+    #     papers_df_subset = create_pagination(data, items_per_page=25, label="grid")
+    #     generate_grid_gallery(papers_df_subset)
+    #     create_bottom_navigation(label="grid")
+    #
+    # with content_tabs[2]:
+    #     ## Focus on a paper.
+    #     arxiv_code = st.text_input("Summary", st.session_state.arxiv_code)
+    #     st.session_state.arxiv_code = arxiv_code
+    #     if len(arxiv_code) > 0:
+    #         paper = data.loc[arxiv_code].to_dict()
+    #         create_paper_card(paper, mode="open")
 
     # ## URL tab selection.
     # if "tab_num" in url_query:
