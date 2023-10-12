@@ -225,7 +225,7 @@ def main():
 
     ## Order.
     if sort_by == "Company":
-        data = data.sort_values("company", ascending=False)
+        data = data.sort_values("company", ascending=True)
     elif sort_by == "Sentiment Score Descending":
         data = data.sort_values("sentiment_score", ascending=False)
     elif sort_by == "Sentiment Score Ascending":
