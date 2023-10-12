@@ -127,7 +127,7 @@ def generate_grid_gallery(df, n_cols=3):
                 with cols[j]:
                     paper_code = df.iloc[i * n_cols + j]["summary"]
                     focus_btn = st.button(
-                        "Read", key=f"focus_{paper_code}", use_container_width=True
+                        "Read Summary", key=f"{paper_code}", use_container_width=True
                     )
                     if focus_btn:
                         st.session_state.arxiv_code = paper_code
