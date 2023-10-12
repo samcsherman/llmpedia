@@ -51,7 +51,7 @@ st.markdown(
 @st.cache_data
 def load_data():
     """Load data from compiled dataframe."""
-    result_df = pd.read_csv("streamlit_data.csv")
+    result_df = pd.read_csv("streamlit_data2.csv")
 
     return result_df
 
@@ -197,7 +197,7 @@ def main():
     st.markdown(
         "For the given docket-id, comments submitted are summarized and put through a sentiment analysis by ChatGPT.\n\n" 
         "Please sue this app to find any summaries of interest. You can sort and filter. It may be particularly useful\n\n"
-        "to sort by `sentiment_score` or filter by `company`."
+        "to sort by `Sentiment Score` or filter by `Company`."
     )
 
     ## Main content.
@@ -239,7 +239,6 @@ def main():
             st.session_state.page_number = 0
 
         papers_subset = create_pagination(papers, items_per_page=7, label="summaries")
-        #st.markdown(f"**{len(papers)} papers found.**")
         for paper in papers_subset:
             create_paper_card(paper)
         create_bottom_navigation(label="summaries")
