@@ -116,7 +116,7 @@ def create_paper_card(paper: Dict, mode="preview"):
     st.markdown("---")
 
 
-def generate_grid_gallery(df, n_cols=3):
+def generate_grid_gallery(df, n_cols=6):
     """Create streamlit grid gallery of paper cards with thumbnail."""
     n_rows = int(np.ceil(len(df) / n_cols))
     for i in range(n_rows):
@@ -131,7 +131,7 @@ def generate_grid_gallery(df, n_cols=3):
                     if focus_btn:
                         st.session_state.arxiv_code = paper_code
                         click_tab(3)
-                    # paper_title = df.iloc[i * n_cols + j]["company"] + "\nA Summary from ChatGPT"
+                    paper_title = df.iloc[i * n_cols + j]["company"] + "\nA Summary from ChatGPT"
                     # star_count = df.iloc[i * n_cols + j]["influential_citation_count"] > 0
                     # publish_date = pd.to_datetime(
                     #     df.iloc[i * n_cols + j]["published"]
@@ -140,10 +140,10 @@ def generate_grid_gallery(df, n_cols=3):
                     # if star_count:
                     #     star = "⭐️"
                     # st.code(f"{star} {publish_date}", language="html")
-                    # st.markdown(
-                    #     f'<h6 style="text-align: center"><a href="{paper_title}" style="color: #FF4B4B;">{paper_title}</a></h6>',
-                    #     unsafe_allow_html=True,
-                    # )
+                    st.markdown(
+                        f'<h6 style="text-align: center"><a href="{paper_title}" style="color: #FF4B4B;">{paper_title}</a></h6>',
+                        unsafe_allow_html=True,
+                    )
                     # last_updated = pd.to_datetime(
                     #     df.iloc[i * n_cols + j]["published"]
                     # ).strftime("%B %d, %Y")
