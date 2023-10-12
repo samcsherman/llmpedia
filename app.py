@@ -128,7 +128,7 @@ def generate_grid_gallery(df, n_cols=3):
                     st.markdown(
                         f'{paper_title}',
                     )
-                    paper_code = df.iloc[i * n_cols + j]["summary"].values[0]
+                    paper_code = df.iloc[i * n_cols + j]["summary"]
                     focus_btn = st.button(
                         "Read Summary", key=f"{paper_code}", use_container_width=True
                     )
