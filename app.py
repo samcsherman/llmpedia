@@ -65,11 +65,11 @@ def create_paper_card(paper: Dict, mode="preview"):
     summary = paper["summary"]
     paper_title = paper["company"]
 
-    # paper_url = paper["summary_link"]
-    # img_cols[1].markdown(
-    #     f'<h2><a href="{paper_url}" style="color: #FF4B4B;">{paper_title}</a></h2>',
-    #     unsafe_allow_html=True,
-    # )
+
+    img_cols[1].markdown(
+        f'<h2><a href="{paper_title}" style="color: #FF4B4B;">{paper_title}</a></h2>',
+        unsafe_allow_html=True,
+    )
 
     with st.expander(f"{paper_title} - - A Summary from ChatGPT", expanded=expanded):
         st.markdown(summary)
