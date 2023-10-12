@@ -116,7 +116,7 @@ def create_paper_card(paper: Dict, mode="preview"):
     st.markdown("---")
 
 
-def generate_grid_gallery(df, n_cols=6):
+def generate_grid_gallery(df, n_cols=3):
     """Create streamlit grid gallery of paper cards with thumbnail."""
     n_rows = int(np.ceil(len(df) / n_cols))
     for i in range(n_rows):
@@ -128,7 +128,7 @@ def generate_grid_gallery(df, n_cols=6):
                     st.markdown(
                         f'{paper_title}',
                     )
-                    paper_code = df.iloc[i * n_cols + j]["summary"]
+                    paper_code = df.iloc[i * n_cols + j]["summary"].values[0]
                     focus_btn = st.button(
                         "Read Summary", key=f"{paper_code}", use_container_width=True
                     )
