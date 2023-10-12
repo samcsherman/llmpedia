@@ -103,10 +103,10 @@ def create_paper_card(paper: Dict, mode="preview"):
         unsafe_allow_html=True,
     )
 
-    with st.expander(f"{paper_title} -- A Summary from ChatGPT", expanded=expanded):
+    with st.expander(f"{paper_title} - - A Summary from ChatGPT", expanded=expanded):
         st.markdown(summary)
 
-    with st.expander(f"Sentiment Analysis", expanded=True):
+    with st.expander(f"Sentiment Analysis", expanded=expanded):
         st.markdown(f"{paper['sentiment_explanation']}")
 
     with st.expander(
@@ -124,9 +124,9 @@ def generate_grid_gallery(df, n_cols=3):
         for j in range(n_cols):
             if i * n_cols + j < len(df):
                 with cols[j]:
-                    paper_code = df.iloc[i * n_cols + j]["summary"]
+                    paper_code = df.iloc[i * n_cols + j]["company"]
                     focus_btn = st.button(
-                        "Read Summary", key=f"{paper_code}", use_container_width=True
+                        "Read Summary", key=f"company", use_container_width=True
                     )
                     if focus_btn:
                         st.session_state.arxiv_code = paper_code
@@ -140,10 +140,10 @@ def generate_grid_gallery(df, n_cols=3):
                     # if star_count:
                     #     star = "⭐️"
                     # st.code(f"{star} {publish_date}", language="html")
-                    st.markdown(
-                        f'<h6 style="text-align: center"><a href="{paper_title}" style="color: #FF4B4B;">{paper_title}</a></h6>',
-                        unsafe_allow_html=True,
-                    )
+                    # st.markdown(
+                    #     f'<h6 style="text-align: center"><a href="{paper_title}" style="color: #FF4B4B;">{paper_title}</a></h6>',
+                    #     unsafe_allow_html=True,
+                    # )
                     # last_updated = pd.to_datetime(
                     #     df.iloc[i * n_cols + j]["published"]
                     # ).strftime("%B %d, %Y")
@@ -272,17 +272,9 @@ def main():
     papers = data.to_dict("records")
 
     ## Content tabs.
-    content_tabs = st.tabs(["Grid View", "Feed View", "Focus View"])
+    content_tabs = st.tabs(["Feed View", "Grid View", "Focus View"])
 
     with content_tabs[0]:
-        if "page_number" not in st.session_state:
-            st.session_state.page_number = 0
-
-        papers_df_subset = create_pagination(data, items_per_page=25, label="grid")
-        generate_grid_gallery(papers_df_subset)
-        create_bottom_navigation(label="grid")
-
-    with content_tabs[1]:
         if "page_number" not in st.session_state:
             st.session_state.page_number = 0
 
@@ -290,6 +282,14 @@ def main():
         for paper in papers_subset:
             create_paper_card(paper)
         create_bottom_navigation(label="summaries")
+
+    with content_tabs[1]:
+        if "page_number" not in st.session_state:
+            st.session_state.page_number = 0
+
+        papers_df_subset = create_pagination(data, items_per_page=25, label="grid")
+        generate_grid_gallery(papers_df_subset)
+        create_bottom_navigation(label="grid")
 
     with content_tabs[2]:
         ## Focus on a paper.
