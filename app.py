@@ -13,7 +13,6 @@ import re, os
 import plotly.io as pio
 
 pio.templates.default = "plotly"
-db_params = {**st.secrets["postgres"]}
 
 ## Page config.
 st.set_page_config(
