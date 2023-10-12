@@ -56,37 +56,6 @@ def load_data():
     return result_df
 
 
-# @st.cache_data
-# def generate_calendar_df(df: pd.DataFrame):
-#     """Daily counts of papers."""
-#     published_df = df.groupby("published").count()["title"]
-#     published_df = published_df.reindex(
-#         pd.date_range(
-#             start=published_df.index.min(), end=published_df.index.max(), freq="D"
-#         )
-#     ).fillna(0)
-#     published_df = published_df.reset_index()
-#     published_df.columns = ["published", "Count"]
-#     return published_df
-
-
-# def get_similar_titles(
-#     title: str, df: pd.DataFrame, n: int = 5
-# ) -> Tuple[List[str], str]:
-#     """Returns titles of papers from the same cluster, along with cluster name"""
-#     title = title.lower()
-#     if title in df["title"].str.lower().values:
-#         cluster = df[df["title"].str.lower() == title]["topic"].values[0]
-#         size = df[df["topic"] == cluster].shape[0]
-#         similar_titles = (
-#             df[df["topic"] == cluster]["title"].sample(min(n, size)).tolist()
-#         )
-#         similar_titles = [t for t in similar_titles if t.lower() != title]
-#         return similar_titles, cluster
-#     else:
-#         return [], ""
-
-
 def create_paper_card(paper: Dict, mode="preview"):
     """Creates card UI for paper details."""
     img_cols = st.columns((1, 3))
@@ -112,47 +81,51 @@ def create_paper_card(paper: Dict, mode="preview"):
         f"Summary Validation", expanded=expanded):
         st.markdown(f"{paper['summary_validation']}")
 
+    with st.expander(
+        f"Original Comment", expanded=expanded):
+        st.markdown(f"{paper['text']}")
+
     st.markdown("---")
 
-
-def generate_grid_gallery(df, n_cols=3):
-    """Create streamlit grid gallery of paper cards with thumbnail."""
-    n_rows = int(np.ceil(len(df) / n_cols))
-    for i in range(n_rows):
-        cols = st.columns(n_cols)
-        for j in range(n_cols):
-            if i * n_cols + j < len(df):
-                with cols[j]:
-                    paper_title = df.iloc[i * n_cols + j]["company"] + "\nA Summary from ChatGPT"
-                    st.markdown(
-                        f'{paper_title}',
-                    )
-                    paper_code = df.iloc[i * n_cols + j].name
-                    focus_btn = st.button(
-                        "Read Summary", use_container_width=True
-                    )
-                    if focus_btn:
-                        st.session_state.arxiv_code = paper_code
-                        click_tab(3)
-                    # star_count = df.iloc[i * n_cols + j]["influential_citation_count"] > 0
-                    # publish_date = pd.to_datetime(
-                    #     df.iloc[i * n_cols + j]["published"]
-                    # ).strftime("%B %d, %Y")
-                    # star = ""
-                    # if star_count:
-                    #     star = "⭐️"
-                    # st.code(f"{star} {publish_date}", language="html")
-                    # last_updated = pd.to_datetime(
-                    #     df.iloc[i * n_cols + j]["published"]
-                    # ).strftime("%B %d, %Y")
-                    # # st.markdown(f"{last_updated}")
-                    # authors_str = df.iloc[i * n_cols + j]["authors"]
-                    # authors_str = (
-                    #     authors_str[:30] + "..."
-                    #     if len(authors_str) > 30
-                    #     else authors_str
-                    # )
-                    # st.markdown(authors_str)
+#
+# def generate_grid_gallery(df, n_cols=3):
+#     """Create streamlit grid gallery of paper cards with thumbnail."""
+#     n_rows = int(np.ceil(len(df) / n_cols))
+#     for i in range(n_rows):
+#         cols = st.columns(n_cols)
+#         for j in range(n_cols):
+#             if i * n_cols + j < len(df):
+#                 with cols[j]:
+#                     paper_title = df.iloc[i * n_cols + j]["company"] + "\nA Summary from ChatGPT"
+#                     st.markdown(
+#                         f'{paper_title}',
+#                     )
+#                     paper_code = df.iloc[i * n_cols + j].name
+#                     focus_btn = st.button(
+#                         "Read Summary", use_container_width=True
+#                     )
+#                     if focus_btn:
+#                         st.session_state.arxiv_code = paper_code
+#                         click_tab(3)
+#                     # star_count = df.iloc[i * n_cols + j]["influential_citation_count"] > 0
+#                     # publish_date = pd.to_datetime(
+#                     #     df.iloc[i * n_cols + j]["published"]
+#                     # ).strftime("%B %d, %Y")
+#                     # star = ""
+#                     # if star_count:
+#                     #     star = "⭐️"
+#                     # st.code(f"{star} {publish_date}", language="html")
+#                     # last_updated = pd.to_datetime(
+#                     #     df.iloc[i * n_cols + j]["published"]
+#                     # ).strftime("%B %d, %Y")
+#                     # # st.markdown(f"{last_updated}")
+#                     # authors_str = df.iloc[i * n_cols + j]["authors"]
+#                     # authors_str = (
+#                     #     authors_str[:30] + "..."
+#                     #     if len(authors_str) > 30
+#                     #     else authors_str
+#                     # )
+#                     # st.markdown(authors_str)
 
 
 def create_pagination(items, items_per_page, label="summaries"):
@@ -211,11 +184,6 @@ def click_tab(tab_num):
 
 
 def main():
-    # ## URL info extraction.
-    # url_query = st.experimental_get_query_params()
-    # if "arxiv_code" in url_query:
-    #     arxiv_code = url_query["arxiv_code"][0]
-    #     st.session_state.arxiv_code = arxiv_code
 
     st.markdown(
         """<div class="pixel-font">Regulatory Comment Explorer</div>
@@ -276,34 +244,6 @@ def main():
             create_paper_card(paper)
         create_bottom_navigation(label="summaries")
 
-    # with content_tabs[1]:
-    #     if "page_number" not in st.session_state:
-    #         st.session_state.page_number = 0
-    #
-    #     papers_df_subset = create_pagination(data, items_per_page=25, label="grid")
-    #     generate_grid_gallery(papers_df_subset)
-    #     create_bottom_navigation(label="grid")
-    #
-    # with content_tabs[2]:
-    #     ## Focus on a paper.
-    #     arxiv_code = st.text_input("Summary", st.session_state.arxiv_code)
-    #     st.session_state.arxiv_code = arxiv_code
-    #     if len(arxiv_code) > 0:
-    #         paper = data.loc[arxiv_code].to_dict()
-    #         create_paper_card(paper, mode="open")
-
-    # ## URL tab selection.
-    # if "tab_num" in url_query:
-    #     index_tab = int(url_query["tab_num"][0])
-    #     js = f"""
-    #     <script>
-    #         var tabs = window.parent.document.querySelectorAll("[id^='tabs-bui'][id$='-tab-{index_tab}']");
-    #         if (tabs.length > 0) {{
-    #             tabs[0].click();
-    #         }}
-    #     </script>
-    #     """
-    #     st.components.v1.html(js)
 
 
 if __name__ == "__main__":
