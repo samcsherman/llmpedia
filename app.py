@@ -256,9 +256,9 @@ def main():
 
     ## Company Filter.
     if len(company) > 0:
-        data = data[data["company"] == company]
+        data = data[data["company"].isin(company)]
     if len(sentiment_type) > 0:
-        data = data[data["sentiment"] == sentiment_type]
+        data = data[data["sentiment"].isin(sentiment_type)]
 
     ## Order.
     if sort_by == "Company":
