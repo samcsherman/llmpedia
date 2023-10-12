@@ -80,10 +80,10 @@ def create_paper_card(paper: Dict, mode="preview"):
     with st.expander(
         f"Summary Validation", expanded=expanded):
         st.markdown(f"{paper['summary_validation']}")
-
+    import unicode
     with st.expander(
         f"Original Comment", expanded=expanded):
-        paper['text'] = paper['text'].astype(str)
+        paper['text'] = unicode(paper['text'], "utf-8")
         st.markdown(f"{paper['text']}")
 
     st.markdown("---")
