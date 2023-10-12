@@ -124,6 +124,10 @@ def generate_grid_gallery(df, n_cols=6):
         for j in range(n_cols):
             if i * n_cols + j < len(df):
                 with cols[j]:
+                    st.markdown(
+                        f'{paper_title}',
+                        unsafe_allow_html=True,
+                    )
                     paper_code = df.iloc[i * n_cols + j]["summary"]
                     focus_btn = st.button(
                         "Read Summary", key=f"{paper_code}", use_container_width=True
@@ -140,10 +144,6 @@ def generate_grid_gallery(df, n_cols=6):
                     # if star_count:
                     #     star = "⭐️"
                     # st.code(f"{star} {publish_date}", language="html")
-                    st.markdown(
-                        f'<h6 style="text-align: center"> style="color: #FF4B4B;">{paper_title}</a></h6>',
-                        unsafe_allow_html=True,
-                    )
                     # last_updated = pd.to_datetime(
                     #     df.iloc[i * n_cols + j]["published"]
                     # ).strftime("%B %d, %Y")
