@@ -216,7 +216,7 @@ def main():
     ## Sort by.
     sort_by = st.sidebar.selectbox(
         "Sort By",
-        ["Sentiment Score Ascending", "Sentiment Score Descending", "Company"],
+        ["Company", "Sentiment Score Ascending", "Sentiment Score Descending"],
     )
 
     ## Company Filter.
