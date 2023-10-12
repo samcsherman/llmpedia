@@ -48,7 +48,7 @@ st.markdown(
     unsafe_allow_html=True,
 )
 
-@st.cache_data
+# @st.cache_data
 def load_data():
     """Load data from compiled dataframe."""
     result_df = pd.read_csv("streamlit_data2.csv")
