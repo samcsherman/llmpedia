@@ -32,8 +32,8 @@ st.set_page_config(
 # if "num_pages" not in st.session_state:
 #     st.session_state.num_pages = 0
 #
-# if "arxiv_code" not in st.session_state:
-#     st.session_state.arxiv_code = ""
+if "arxiv_code" not in st.session_state:
+    st.session_state.arxiv_code = ""
 
 st.markdown(
     """
