@@ -242,10 +242,6 @@ def main():
         "Company Filter",
         list(data["company"].unique()),
     )
-    # sentiment_type = st.sidebar.multiselect(
-    #     "Sentiment Type Filter",
-    #     list(data["sentiment"].unique()),
-    # )
 
     ## Sort by.
     sort_by = st.sidebar.selectbox(
@@ -256,8 +252,6 @@ def main():
     ## Company Filter.
     if len(company) > 0:
         data = data[data["company"].isin(company)]
-    # if len(sentiment_type) > 0:
-    #     data = data[data["sentiment"].isin(sentiment_type)]
 
     ## Order.
     if sort_by == "Company":
