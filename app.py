@@ -144,10 +144,12 @@ def create_pagination(items, items_per_page, label="summaries"):
 
     if prev_clicked and "page_number" in st.session_state:
         st.session_state.page_number = max(0, st.session_state.page_number - 1)
+        st.experimental_rerun()
     if next_clicked and "page_number" in st.session_state:
         st.session_state.page_number = min(
             num_pages - 1, st.session_state.page_number + 1
         )
+        st.experimental_rerun()
 
     start_index = st.session_state.page_number * items_per_page
     end_index = min(start_index + items_per_page, num_items)
