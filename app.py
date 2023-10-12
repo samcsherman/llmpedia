@@ -294,7 +294,7 @@ def main():
 
     with content_tabs[2]:
         ## Focus on a paper.
-        arxiv_code = st.text_input("Summary", st.session_state.arxiv_code)
+        arxiv_code = st.text_input("summary", st.session_state.arxiv_code)
         st.session_state.arxiv_code = arxiv_code
         if len(arxiv_code) > 0:
             if arxiv_code in data.index:
