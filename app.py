@@ -124,6 +124,7 @@ def generate_grid_gallery(df, n_cols=6):
         for j in range(n_cols):
             if i * n_cols + j < len(df):
                 with cols[j]:
+                    paper_title = df.iloc[i * n_cols + j]["company"] + "\nA Summary from ChatGPT"
                     st.markdown(
                         f'{paper_title}',
                     )
@@ -134,7 +135,6 @@ def generate_grid_gallery(df, n_cols=6):
                     if focus_btn:
                         st.session_state.arxiv_code = paper_code
                         click_tab(3)
-                    paper_title = df.iloc[i * n_cols + j]["company"] + "\nA Summary from ChatGPT"
                     # star_count = df.iloc[i * n_cols + j]["influential_citation_count"] > 0
                     # publish_date = pd.to_datetime(
                     #     df.iloc[i * n_cols + j]["published"]
