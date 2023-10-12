@@ -130,7 +130,7 @@ def generate_grid_gallery(df, n_cols=3):
                     )
                     paper_code = df.iloc[i * n_cols + j]["summary"]
                     focus_btn = st.button(
-                        "Read Summary", key=f"{paper_code}", use_container_width=True
+                        "Read Summary", use_container_width=True
                     )
                     if focus_btn:
                         st.session_state.arxiv_code = paper_code
@@ -293,7 +293,7 @@ def main():
     with content_tabs[2]:
         ## Focus on a paper.
         arxiv_code = st.text_input("Summary", st.session_state.arxiv_code)
-        st.session_state.arxiv_code = arxiv_code
+        # st.session_state.arxiv_code = arxiv_code
         if len(arxiv_code) > 0:
             if arxiv_code in data.index:
                 paper = data[data.summary == arxiv_code].to_dict()
