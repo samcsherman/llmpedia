@@ -271,6 +271,7 @@ def main():
             st.session_state.page_number = 0
 
         papers_subset = create_pagination(papers, items_per_page=7, label="summaries")
+        st.markdown(f"**{len(papers)} papers found.**")
         for paper in papers_subset:
             create_paper_card(paper)
         create_bottom_navigation(label="summaries")
