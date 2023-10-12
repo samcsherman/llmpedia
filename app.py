@@ -95,7 +95,7 @@ def create_paper_card(paper: Dict, mode="preview"):
     if mode == "open":
         expanded = True
     summary = paper["summary"]
-    paper_title = paper["Company"]
+    paper_title = paper["company"]
 
     paper_url = paper["summary_link"]
     img_cols[1].markdown(
@@ -133,7 +133,7 @@ def generate_grid_gallery(df, n_cols=3):
                         st.session_state.arxiv_code = paper_code
                         click_tab(3)
                     paper_url = df.iloc[i * n_cols + j]["summary_link"]
-                    paper_title = df.iloc[i * n_cols + j]["Company"] + "\nA Summary from ChatGPT"
+                    paper_title = df.iloc[i * n_cols + j]["company"] + "\nA Summary from ChatGPT"
                     # star_count = df.iloc[i * n_cols + j]["influential_citation_count"] > 0
                     # publish_date = pd.to_datetime(
                     #     df.iloc[i * n_cols + j]["published"]
@@ -215,11 +215,11 @@ def click_tab(tab_num):
 
 
 def main():
-    ## URL info extraction.
-    url_query = st.experimental_get_query_params()
-    if "arxiv_code" in url_query:
-        arxiv_code = url_query["arxiv_code"][0]
-        st.session_state.arxiv_code = arxiv_code
+    # ## URL info extraction.
+    # url_query = st.experimental_get_query_params()
+    # if "arxiv_code" in url_query:
+    #     arxiv_code = url_query["arxiv_code"][0]
+    #     st.session_state.arxiv_code = arxiv_code
 
     st.markdown(
         """<div class="pixel-font">Regulatory Comment Explorer</div>
@@ -244,11 +244,11 @@ def main():
     st.sidebar.markdown("# 📁 Filters")
     company = st.sidebar.multiselect(
         "Company Filter",
-        list(data["Company"].unique()),
+        list(data["company"].unique()),
     )
     sentiment_type = st.sidebar.multiselect(
         "Sentiment Type Filter",
-        list(data["Sentiment"].unique()),
+        list(data["sentiment"].unique()),
     )
 
     ## Sort by.
@@ -295,27 +295,27 @@ def main():
 
     with content_tabs[2]:
         ## Focus on a paper.
-        arxiv_code = st.text_input("arXiv Code", st.session_state.arxiv_code)
+        arxiv_code = st.text_input("Summary", st.session_state.arxiv_code)
         st.session_state.arxiv_code = arxiv_code
         if len(arxiv_code) > 0:
             if arxiv_code in data.index:
                 paper = data.loc[arxiv_code].to_dict()
                 create_paper_card(paper, mode="open")
             else:
-                st.error("Paper not found.")
+                st.error("Company not found.")
 
-    ## URL tab selection.
-    if "tab_num" in url_query:
-        index_tab = int(url_query["tab_num"][0])
-        js = f"""
-        <script>
-            var tabs = window.parent.document.querySelectorAll("[id^='tabs-bui'][id$='-tab-{index_tab}']");
-            if (tabs.length > 0) {{
-                tabs[0].click();
-            }}
-        </script>
-        """
-        st.components.v1.html(js)
+    # ## URL tab selection.
+    # if "tab_num" in url_query:
+    #     index_tab = int(url_query["tab_num"][0])
+    #     js = f"""
+    #     <script>
+    #         var tabs = window.parent.document.querySelectorAll("[id^='tabs-bui'][id$='-tab-{index_tab}']");
+    #         if (tabs.length > 0) {{
+    #             tabs[0].click();
+    #         }}
+    #     </script>
+    #     """
+    #     st.components.v1.html(js)
 
 
 if __name__ == "__main__":
