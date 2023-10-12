@@ -97,11 +97,11 @@ def create_paper_card(paper: Dict, mode="preview"):
     summary = paper["summary"]
     paper_title = paper["company"]
 
-    paper_url = paper["summary_link"]
-    img_cols[1].markdown(
-        f'<h2><a href="{paper_url}" style="color: #FF4B4B;">{paper_title}</a></h2>',
-        unsafe_allow_html=True,
-    )
+    # paper_url = paper["summary_link"]
+    # img_cols[1].markdown(
+    #     f'<h2><a href="{paper_url}" style="color: #FF4B4B;">{paper_title}</a></h2>',
+    #     unsafe_allow_html=True,
+    # )
 
     with st.expander(f"A Commented Submitted to the EPA from {paper_title}\n A Summary from ChatGPT", expanded=expanded):
         st.markdown(summary)
@@ -132,7 +132,6 @@ def generate_grid_gallery(df, n_cols=3):
                     if focus_btn:
                         st.session_state.arxiv_code = paper_code
                         click_tab(3)
-                    paper_url = df.iloc[i * n_cols + j]["summary_link"]
                     paper_title = df.iloc[i * n_cols + j]["company"] + "\nA Summary from ChatGPT"
                     # star_count = df.iloc[i * n_cols + j]["influential_citation_count"] > 0
                     # publish_date = pd.to_datetime(
@@ -143,7 +142,7 @@ def generate_grid_gallery(df, n_cols=3):
                     #     star = "⭐️"
                     # st.code(f"{star} {publish_date}", language="html")
                     st.markdown(
-                        f'<h6 style="text-align: center"><a href="{paper_url}" style="color: #FF4B4B;">{paper_title}</a></h6>',
+                        f'<h6 style="text-align: center"><a href="{paper_title}" style="color: #FF4B4B;">{paper_title}</a></h6>',
                         unsafe_allow_html=True,
                     )
                     # last_updated = pd.to_datetime(
