@@ -40,7 +40,7 @@ st.markdown(
     <style>
         @import 'https://fonts.googleapis.com/css2?family=Orbitron&display=swap';
         .pixel-font {
-            font-family: 'Orbitron', sans-serif;
+            font-family: 'Roboto', sans-serif;
             font-size: 32px;
             margin-bottom: 1rem;
         }
@@ -231,9 +231,9 @@ def main():
     )
     ## Humorous and poetic introduction.
     st.markdown(
-        "For the given docket-id, comments submitted are summarized and put through a sentiment analysis by ChatGPT.\n\n"
-        "Please sue this app to find any summaries of interest. You can sort and filter. It may be particularly useful\n\n"
-        "to sort by `sentiment_score` or filter by `company`."
+        """For the given docket-id, comments submitted are summarized and put through a sentiment analysis by ChatGPT.\n\n 
+        Please sue this app to find any summaries of interest. You can sort and filter. It may be particularly useful\n\n
+        to sort by `sentiment_score` or filter by `company`."""
     )
 
     ## Main content.
@@ -259,13 +259,13 @@ def main():
 
     ## Company Filter.
     if len(company) > 0:
-        data = data[data["Company"] == company]
+        data = data[data["company"] == company]
     if len(sentiment_type) > 0:
-        data = data[data["Sentiment"] == sentiment_type]
+        data = data[data["sentiment"] == sentiment_type]
 
     ## Order.
     if sort_by == "Company":
-        data = data.sort_values("Company", ascending=False)
+        data = data.sort_values("company", ascending=False)
     elif sort_by == "Sentiment Score Descending":
         data = data.sort_values("sentiment_score", ascending=False)
     elif sort_by == "Sentiment Score Ascending":
