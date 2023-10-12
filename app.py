@@ -83,6 +83,7 @@ def create_paper_card(paper: Dict, mode="preview"):
 
     with st.expander(
         f"Original Comment", expanded=expanded):
+        paper['text'] = paper['text'].astype(str)
         st.markdown(f"{paper['text']}")
 
     st.markdown("---")
