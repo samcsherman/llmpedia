@@ -141,7 +141,8 @@ def generate_grid_gallery(df, n_cols=6):
                     #     star = "⭐️"
                     # st.code(f"{star} {publish_date}", language="html")
                     st.markdown(
-                        f'{paper_title}',
+                        f'<h6 style="text-align: center"> style="color: #FF4B4B;">{paper_title}</a></h6>',
+                        unsafe_allow_html=True,
                     )
                     # last_updated = pd.to_datetime(
                     #     df.iloc[i * n_cols + j]["published"]
