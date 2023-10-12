@@ -124,14 +124,14 @@ def generate_grid_gallery(df, n_cols=3):
         for j in range(n_cols):
             if i * n_cols + j < len(df):
                 with cols[j]:
-                    paper_code = df.iloc[i * n_cols + j]["company"]
+                    paper_code = df.iloc[i * n_cols + j]["summary"]
                     focus_btn = st.button(
-                        "Read Summary", key=f"company1", use_container_width=True
+                        "Read Summary", key=f"{paper_code}", use_container_width=True
                     )
                     if focus_btn:
                         st.session_state.arxiv_code = paper_code
                         click_tab(3)
-                    paper_title = df.iloc[i * n_cols + j]["company"] + "\nA Summary from ChatGPT"
+                    # paper_title = df.iloc[i * n_cols + j]["company"] + "\nA Summary from ChatGPT"
                     # star_count = df.iloc[i * n_cols + j]["influential_citation_count"] > 0
                     # publish_date = pd.to_datetime(
                     #     df.iloc[i * n_cols + j]["published"]
@@ -140,10 +140,10 @@ def generate_grid_gallery(df, n_cols=3):
                     # if star_count:
                     #     star = "⭐️"
                     # st.code(f"{star} {publish_date}", language="html")
-                    st.markdown(
-                        f'<h6 style="text-align: center"><a href="{paper_title}" style="color: #FF4B4B;">{paper_title}</a></h6>',
-                        unsafe_allow_html=True,
-                    )
+                    # st.markdown(
+                    #     f'<h6 style="text-align: center"><a href="{paper_title}" style="color: #FF4B4B;">{paper_title}</a></h6>',
+                    #     unsafe_allow_html=True,
+                    # )
                     # last_updated = pd.to_datetime(
                     #     df.iloc[i * n_cols + j]["published"]
                     # ).strftime("%B %d, %Y")
@@ -293,7 +293,7 @@ def main():
 
     with content_tabs[2]:
         ## Focus on a paper.
-        arxiv_code = st.text_input("company1", st.session_state.arxiv_code)
+        arxiv_code = st.text_input("Summary", st.session_state.arxiv_code)
         st.session_state.arxiv_code = arxiv_code
         if len(arxiv_code) > 0:
             if arxiv_code in data.index:
