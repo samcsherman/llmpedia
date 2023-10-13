@@ -198,8 +198,8 @@ def main():
     )
     ## Humorous and poetic introduction.
     st.markdown(
-        "For the given docket-id, comments submitted are summarized and put through a sentiment analysis by ChatGPT.\n\n" 
-        "Please sue this app to find any summaries of interest. You can sort and filter. It may be particularly useful\n\n"
+        "For the given docket-id, comments submitted are summarized and put through a sentiment analysis by ChatGPT.\n" 
+        "Please sue this app to find any summaries of interest. You can sort and filter. It may be particularly useful\n"
         "to sort by `Sentiment Score` or filter by `Company`."
     )
 
