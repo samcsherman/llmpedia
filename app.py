@@ -70,8 +70,8 @@ def create_paper_card(paper: Dict, mode="preview"):
     #     f'<h2><a href="{paper_title}" style="color: #FF4B4B;">{paper_title}</a></h2>',
     #     unsafe_allow_html=True,
     # )
-    with st.expander(f"{paper_title} - - A Short Summary", expanded=expanded):
-        st.markdown(paper['short_summary'])
+    # with st.expander(f"{paper_title} - - A Short Summary", expanded=expanded):
+    #     st.markdown(paper['short_summary'])
 
     with st.expander(f"{paper_title} - - A Summary", expanded=expanded):
         st.markdown(summary)
